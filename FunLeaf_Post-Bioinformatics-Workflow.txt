@@ -1,0 +1,545 @@
+
+###########################################################################################
+############# FunLeaf: A global dataset of foliar fungi####################################
+###########################################################################################
+# Authors:
+#Niloufar Hagh-Doust, Hajra Khalil, Vladimir Mikryukov, Victoria Prins, Sergei Põlme, Sten Anslan, Ovidiu Copoț, Kai Ilves, Ali Hakimzadeh, Olesya Dulya, Mo Bahram, Valeria Flores-Almaraz, Amer M. Abdelaziz, Ahto Agan, Juha M. Alatalo, Abdullah M. S. Al-Hatmi, Mehrdad Alizadeh, Joe F. Ammirati, Andrés Argüelles-Moyao, Manikandan Ariyan, Farzad Aslani, Rachael A. Bamigboye, Katie M. Becklin, Francesca Beggi, Igor E. Bergman, Chitrabhanu Sharma Bhunjun, Stella Marys Bogino, Gregory Bonito, Francis Q. Brearley, Elena A. Butunina, Rebeca Casique-Valdés, María Alicia Cendoya, Hsiang-Yao Chi, Esteban María Crespo, Thomas E. dela Cruz, María José Dibán, Rein Drenkhan, Mikk Espenberg, Valeria S. Faggioli, Sanni M. A. Färkkilä, Nina V. Filippova, Juan P. Frene, Ariadne N. M. Furtado, Felipe Gaínza-Cortés, Jill Gandossi, Taofeeq Garuba, André L. Gasper, Soumya Ghosh, Roberto Godoy, Daniyal Gohar, Achim Groß, Marieka Gryzenhout, Amr H. Hashem, Mohamed Saad Hellal, Mahdieh S. Hosseyni Moghadam, Kevin D. Hyde, Karina Inostroza, Yonglei Jiang, Julieta Alvarez-Manjarrez, Khalil Kariman, Elena Karlsen-Ayala, Sebastián Kepfer-Rojas, Elena A. Kizilova, Sergei E. Korkin, Natalia N. Korotkikh, Jaturong Kumla, John Y. Kupagme, Emilynruwaka Lamare, Louis J. Lamit, Adebola Azeez Lateef, Ylva Lekberg, Junjie Liu, D. Jean Lodge, Pengpeng Lu, Mónica Alejandra Lugo, Ülo Mander, Chowlani Manpoong, César Marín, Žaklina S. Marjanović, Sebastián Martínez, Olga V. Medvezhonkova, Anne Menert, Basanta Moirangthem, Ng. Polbina Monsang , Fardin Moradi, Sunil Mundra, Rajasekaran Murugan, Victoria Naluyange, Tarquin Netherway, Kevin K. Newsham, André Ledoux Njouonkou, Dennis M. W. Ochieno, Jane Oja, Ganiyu Shittu Olahan, Vladimir G. Onipchenko, Emanuel Ontivero, Etsoshan Y Ovung, Yamunasri Palanisamy, Kristel Panksep, Elena Pasechnyuk, Cherdchai Phosri, Chayanard Phukhamsakda, Maria A. Polezhaeva, Lee Põllumaa, Xin Qian, Saleh Rahimlou, Elisabeth Rähn, Hamid Razifard, Ivan Reznichenko, Andrea C. Rinaldi, Lucía Verónica Risio Allione, Pablo Rodriguez-Herrera, Oscar Alberto Rojas-Castillo, Tatiana Rubiano Goubert, Kadri Runnel, Irja Saar, Malka Saba, Joana Sabino-Pinto, Alessandro Saitta, Kaarel Sammet, Hilonga Samson, Tatiana Ibeth Sanjuan Giraldo, Oscar Serrano, Eduard Serrano, Dipon Sharmah, Cathy Sharp, Anton G. Shiryaev, Patricia Silva-Flores, Ngangbam Somen Singh, Sidney L. Stürmer, Surya Sudheer, Nakarin Suwannarach, Sten Svantesson , Liis Tiirmann, Ina Timling, Muhammad Danish Toor, Jordon C. Tourville, Shri Kant Tripathi, Camille Truong, Keshav Kumar Upadhyay, Helga van der Merwe, Aida M. Vasco-Palacios, Annemieke Verbeken, Elena Verevkina, Teng Yang, Toivo A. Ylinampa, Meiqing Yuan, Zhilin Yuan, Zuoqiang Yuan, Urmas Kõljalg, Leho Tedersoo
+
+########################
+# The following are the codes used for post-bioinformatic processing of the FunLeaf sequencing data
+########################
+# It should be noted that some of the analysis might require high computing power
+# users are advised to apply the code on a subset of the data to evaluate the computing power needed
+########################
+
+
+###########################################
+# Post- Bioinformatics Processing Workflow
+###########################################
+# 1. Download data from ENA - The raw sequencing data have been deposited in the European Nucleotide Archive (ENA) under Bioproject PRJEB128623 (sample accession numbers: ERS32548868–ERS32558099; and sequence accession numbers: ERR18078627-ERR18078653, ERR18078655-ERR18078663, ERR18078665-ERR18078766, ERR18078768-ERR18078774, ERR18078776-ERR18078860, ERR18078862-ERR18078894, ERR18078896-ERR18078902, ERR18078904-ERR18078915, ERR18078917-ERR18078922, ERR18078924-ERR18078932, ERR18078934-ERR18078948, ERR18078950-ERR18078956, ERR18078958-ERR18078970, ERR18078972-ERR18078978, ERR18078980-ERR18079007, ERR18079009-ERR18079016, ERR18079018-ERR18079043, ERR18079045-ERR18079075, ERR18079077-ERR18079107, ERR18079109-ERR18079187, ERR18079189-ERR18079213, ERR18079215-ERR18079238, ERR18079240-ERR18079341, ERR18079343-ERR18079418, ERR18079420-ERR18079464, ERR18079466-ERR18079534, ERR18079539-ERR18079545, ERR18079564, ERR18079566-ERR18079608, ERR18079610-ERR18079720, ERR18079722-ERR18079812, ERR18079814-ERR18079890, ERR18079892-ERR18079932, ERR18079934-ERR18079997, ERR18079999-ERR18080035, ERR18080037-ERR18080115, ERR18080117-ERR18080132, ERR18080247, ERR18080313-ERR18080319, ERR18080321-ERR18080393, ERR18080395-ERR18080437, ERR18080440-ERR18080455, ERR18080457-ERR18080489, ERR18080491-ERR18080580, ERR18080582-ERR18080593, ERR18080595-ERR18080605. ERR18080607-ERR18080618, ERR18080620-ERR18080627, ERR18080629-ERR18080673, ERR18080675-ERR18080684, ERR18080686-ERR18080694, ERR18080696-ERR18080700, ERR18080702-ERR18080706, ERR18080708-ERR18080719, ERR18080721-ERR18080727, ERR18080729-ERR18080780, ERR18080782-ERR18080850, ERR18080852-ERR18080892, ERR18080894-ERR18080955, ERR18080959-ERR18080994, ERR18080996-ERR18081032, ERR18081034-ERR18081119, ERR18081121-ERR18081155, ERR18081157-ERR18081205, ERR18081207-ERR18081274, ERR18081276-ERR18081336, ERR18081338-ERR18081388, ERR18081568-ERR18081597, ERR18081599-ERR18081690, ERR18081692-ERR18081786, ERR18081788-ERR18081834, ERR18081836-ERR18081842, ERR18081844-ERR18081925, ERR18081927-ERR18081984, ERR18081986-ERR18081996, ERR18081998-ERR18082062, ERR18082064-ERR18082117, ERR18082119-ERR18082141, ERR18082143-ERR18082201, ERR18082203-ERR18082228, ERR18082230-ERR18082300, ERR18082302-ERR18082308, ERR18082310-ERR18082460, ERR18082462-ERR18082507, ERR18082509-ERR18082642, ERR18082644-ERR18082671, ERR18082673-ERR18082714, ERR18082716-ERR18082784, ERR18082786-ERR18082897, ERR18082899-ERR18082934, ERR18082936-ERR18082977, ERR18082979-ERR18083003, ERR18083060-ERR18083084, ERR18083086-ERR18083125, ERR18083127-ERR18083141, ERR18083143-ERR18083178, ERR18083235-ERR18083241, ERR18083243-ERR18083276, ERR18083278-ERR18083339, ERR18083341-ERR18083447, ERR18083449-ERR18083515, ERR18083517-ERR18083563, ERR18083565-ERR18083664, ERR18083666-ERR18083753, ERR18083755-ERR18083829, ERR18083831-ERR18083863, ERR18083865-ERR18083903, ERR18083905-ERR18083958, ERR18083960-ERR18084031, ERR18084033-ERR18084048, ERR18084052-ERR18084081, ERR18084083-ERR18084106, ERR18084108-ERR18084167, ERR18084169-ERR18084260, ERR18084262-ERR18084351, ERR18084353-ERR18084448, ERR18084452-ERR18084483, ERR18084485-ERR18084524, ERR18084527-ERR18084822, ERR18084825-ERR18085084, ERR18085086-ERR18085100, ERR18085102-ERR18085174, ERR18085176-ERR18085348, ERR18085354-ERR18085391, ERR18085393-ERR18085461, ERR18085463-ERR18085468, ERR18085471-ERR18086462, ERR18086464-ERR18086591, ERR18086593-ERR18087520, ERR18087522-ERR18087791, ERR18087809, ERR18087814, ERR18087973-ERR18088601, ERR18088603-ERR18088659, ERR18088661-ERR18088667)
+# 2. Bioinformatic processing was performed using the NextITS pipeline v1.0.0 (Mikryukov et al. 2025), following a workflow  
+# comparable to standardized long-read soil eukaryome studies (GloSED; Mikryukov et al., 2026)  https://github.com/Mycology-Microbiology-Center/GloSED
+# 3 Taxonomic Assignments were performed using EUKARYOME reference database v1.9.3
+
+##################################################################
+# This workflow uses Python and R and was run on a high-power computing system (University of Tartu, HPC) 
+# Users should note that running the following codes might require substantial computing power
+##################################################################
+
+#This workflow includes the steps to produce the final OTU table and taxonomy table in FunLeaf dataset
+
+# =============================================================================
+# Format BLAST results and merge taxonomic assignments with the FunLeaf OTU table          
+# In HPC 
+# =============================================================================
+import os
+import glob
+import pandas as pd
+
+# Path to BLAST result files
+blast_results_dir = "<PROJECT_ROOT>/Step2_Results/05.LULU/BLAST_results"
+blast_result_files = sorted(glob.glob(os.path.join(blast_results_dir, "OTUs_LULU.part_*.m8")))
+
+# Custom header
+formatted_blast_columns = [
+    "OTUid", "accession no", "Kingdom", "phylum", "class", "order", "family",
+    "genus", "species", "ECM status", "...11", "SeqIdentity", "AlignLen",
+    "MismatchN", "GapOpenings", "QueryStart", "QueryEnd", "TargetStart",
+    "TargetEnd", "Evalue", "BitScore"
+]
+
+formatted_blast_tables = []
+
+# Read and process each file
+for blast_result_file in blast_result_files:
+    df = pd.read_csv(blast_result_file, sep="\t", header=None)
+    df.columns = [
+        "OTUid", "subject", "SeqIdentity", "AlignLen", "MismatchN", "GapOpenings",
+        "QueryStart", "QueryEnd", "TargetStart", "TargetEnd", "Evalue", "BitScore"
+    ]
+
+    # Split taxonomy field
+    taxonomy_split = df["subject"].str.split(";", expand=True)
+
+    # Ensure there are enough taxonomy columns
+    max_cols = 10  # accession no to ...11
+    for i in range(max_cols - taxonomy_split.shape[1]):
+        taxonomy_split[taxonomy_split.shape[1] + i] = None
+
+    taxonomy_split.columns = [
+        "accession no", "Kingdom", "phylum", "class", "order", "family",
+        "genus", "species", "ECM status", "...11"
+    ]
+
+    # Merge with original blast info
+    final_df = pd.concat([df["OTUid"], taxonomy_split, df.iloc[:, 2:]], axis=1)
+    formatted_blast_tables.append(final_df)
+
+# Concatenate all dataframes
+merged_df = pd.concat(formatted_blast_tables, ignore_index=True)
+merged_df.columns = formatted_blast_columns
+
+# Save the final file of blast results
+output_path = os.path.join(blast_results_dir, "all_otus_blast_formatted.tsv")
+merged_df.to_csv(output_path, sep="\t", index=False)
+print(f"Saved merged file to: {output_path}")
+
+# =============================================================================
+# Prepare Files with best and top 10 BLAST Hits                                   
+# In HPC 
+# =============================================================================
+
+import pandas as pd
+
+# File paths
+formatted_blast_path = "<PROJECT_ROOT>/Step2_Results/05.LULU/BLAST_results/all_otus_blast_formatted.tsv"
+lulu_otu_table_path = "<PROJECT_ROOT>/Step2_Results/05.LULU/OTU_table_LULU_noSingleton.txt"
+
+# Output files
+best_hit_output = "<PROJECT_ROOT>/Step2_Results/05.LULU/otu_table_with_best_blast_hit.tsv"
+top_ten_hits_output = "<PROJECT_ROOT>/Step2_Results/05.LULU/otu_top_ten_blast_hits.tsv"
+
+# Load BLAST results
+blast_df = pd.read_csv(formatted_blast_path, sep='\t')
+blast_df = blast_df[blast_df['OTUid'].notna()]  # remove NA OTUs
+blast_df['OTUid'] = blast_df['OTUid'].astype(str)
+
+# Load OTU table
+otu_df = pd.read_csv(lulu_otu_table_path, sep='\t')
+otu_df['OTU'] = otu_df['OTU'].astype(str)
+
+# ============================
+# 1. Merge with BEST hit
+# ============================
+best_blast_hit_df = (
+    blast_df.sort_values(by='BitScore', ascending=False)
+    .drop_duplicates(subset='OTUid')
+)
+
+otu_table_with_best_hit = pd.merge(
+    otu_df, best_blast_hit_df, left_on='OTU', right_on='OTUid', how='left'
+)
+otu_table_with_best_hit.to_csv(best_hit_output, sep='\t', index=False)
+print(f"Best-hit merged file saved: {best_hit_output}")
+print(f"Shape: {otu_table_with_best_hit.shape}")
+
+# ============================
+# 2. Top 10 hits per OTU
+# ============================
+top_ten_blast_hits = (
+    blast_df.sort_values(by='BitScore', ascending=False)
+    .groupby('OTUid')
+    .head(10)
+)
+
+top_ten_blast_hits.to_csv(top_ten_hits_output, sep='\t', index=False)
+print(f"Top 10 hits file saved: {top_ten_hits_output}")
+print(f"Shape: {top_ten_blast_hits.shape}")
+
+# =============================================================================
+# Applying Quality filters (e value) and subsetting files       -In HPC 
+# =============================================================================
+import pandas as pd
+
+# Input file path
+merged_path = "<PROJECT_ROOT>/Step2_Results/05.LULU/otu_table_with_best_blast_hit.tsv"
+
+# Read the merged BLAST results
+df = pd.read_csv(merged_path, sep="\t")
+
+# Ensure Evalue is numeric (handle errors gracefully)
+df['Evalue'] = pd.to_numeric(df['Evalue'], errors='coerce')
+
+# Apply Evalue-based filters
+low_confidence_evalue = df[(df['Evalue'] >= 1e-19) & (df['Evalue'] <= 1e-1)]
+intermediate_confidence_evalue = df[(df['Evalue'] < 1e-19) & (df['Evalue'] >= 1e-49)]
+high_confidence_evalue = df[(df['Evalue'] < 1e-49) | (df['Evalue'] == 0)]
+
+# Verify all rows are accounted for
+all_evalue_groups = pd.concat([low_confidence_evalue, intermediate_confidence_evalue, high_confidence_evalue])
+unclassified_evalue_rows = df.loc[~df.index.isin(all_evalue_groups.index)]
+
+print(f"Total rows: {len(df)}")
+print(f"Low confidence: {len(low_confidence_evalue)}, intermediate confidence: {len(intermediate_confidence_evalue)}, high confidence: {len(high_confidence_evalue)}")
+print(f"Unaccounted rows (should be 0): {len(unclassified_evalue_rows)}")
+
+# Output directory
+output_dir = "<PROJECT_ROOT>/Step2_Results/05.LULU"
+
+# Save each filtered group as separate CSV files
+low_confidence_evalue.to_csv(f"{output_dir}/otu_assignments_low_confidence_evalue.csv", index=False) # Taxonomy marked as unknown
+intermediate_confidence_evalue.to_csv(f"{output_dir}/otu_assignments_intermediate_confidence_evalue.csv", index=False) # Review against top-ten BLAST hits
+high_confidence_evalue.to_csv(f"{output_dir}/otu_assignments_high_confidence_evalue.csv", index=False) # Retained assignments
+
+print("✅ CSV files saved successfully.")
+
+# =============================================================================
+# Applying SeqIdentity Filter on subset files  -In HPC 
+# =============================================================================
+import pandas as pd
+
+# Updated file paths
+low_confidence_path = "<PROJECT_ROOT>/otu_assignments_low_confidence_evalue.csv"
+intermediate_confidence_path = "<PROJECT_ROOT>/otu_assignments_intermediate_confidence_evalue_reviewed.csv"
+high_confidence_path = "<PROJECT_ROOT>/otu_assignments_high_confidence_evalue.csv"
+output_path = "<PROJECT_ROOT>/funleaf_otu_table_taxonomy_curated.csv"
+
+# Load CSVs
+low_confidence_assignments = pd.read_csv(low_confidence_path)
+intermediate_confidence_assignments = pd.read_csv(intermediate_confidence_path)
+high_confidence_assignments = pd.read_csv(high_confidence_path)
+
+# Step 2: Add empty taxonomy columns to low-confidence assignments
+taxonomy_columns = ['Kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
+for col in taxonomy_columns:
+    low_confidence_assignments[col] = pd.NA  # adds column if not already present
+
+# Step 3: Combine dataframes
+combined = pd.concat([low_confidence_assignments, high_confidence_assignments, intermediate_confidence_assignments], ignore_index=True)
+
+# Ensure SeqIdentity is numeric
+combined['SeqIdentity'] = pd.to_numeric(combined['SeqIdentity'], errors='coerce')
+
+# Step 4: Apply identity-based filtering
+combined.loc[combined['SeqIdentity'] < 75, ['class', 'order', 'family', 'genus', 'species']] = pd.NA
+combined.loc[(combined['SeqIdentity'] >= 75) & (combined['SeqIdentity'] < 80), ['order', 'family', 'genus', 'species']] = pd.NA
+combined.loc[(combined['SeqIdentity'] >= 80) & (combined['SeqIdentity'] < 85), ['family', 'genus', 'species']] = pd.NA
+combined.loc[(combined['SeqIdentity'] >= 85) & (combined['SeqIdentity'] < 90), ['genus', 'species']] = pd.NA
+
+# Step 5: Replace NA and "." with "Unknown" in taxonomy columns
+for col in taxonomy_columns:
+    combined[col] = combined[col].replace(["NA", ".", None, pd.NA], "Unknown")
+    combined[col] = combined[col].fillna("Unknown")
+
+# Step 6: Save to CSV
+combined.to_csv(output_path, index=False)
+print(f"✅ Cleaned file saved to: {output_path}")
+	
+# =============================================================================
+# Subset file for checking Negative and Positive Control Manually    -In R
+# =============================================================================
+# An OTU was classified as a contaminant if its reads within the control sample exceeded a threshold of 25% of its total 
+- abundance, particularly when coupled with observations in more than 25% of samples in the respective library. OTUs identified 
+- as contaminants were removed from the respective library. Unspike is removed.                                                                                                                                                 
+input_path = "<PROJECT_ROOT>/funleaf_otu_table_taxonomy_curated.csv"
+- Create subsets of 5 Libraries from input file
+- Then manually check library by library in each subset and fix
+
+# =============================================================================
+# Import and Merge files After checking Negative and Positive Control Manually         -In R
+# =============================================================================
+
+library(dplyr)
+library(readr)
+library(purrr)
+
+# Set folder path
+review_folder <- "<PROJECT_ROOT>/Control_review"
+
+# Create list of file paths
+files <- list.files(
+  review_folder,
+  pattern = "^Asubset_file.*\\.csv$",
+  full.names = TRUE
+)
+
+if (length(files) == 0) {
+  stop("No reviewed subset files found.")
+}
+
+# Step 1: Read all files
+data_list <- lapply(files, read_csv, show_col_types = FALSE)
+
+# Step 2: Standardize OTU column name
+data_list <- lapply(data_list, function(df) {
+  names(df)[1] <- "OTU"
+  df[, seq_len(ncol(df) - 21), drop = FALSE]
+})
+
+# Step 3: Remove metadata columns from all except last (keep columns 1 to (ncol - 21))
+for (i in 1:17) {
+  data_list[[i]] <- data_list[[i]][, 1:(ncol(data_list[[i]]) - 21)]
+}
+
+# Step 4: Merge all data by OTU
+merged_data <- reduce(data_list, full_join, by = "OTU")
+
+# Step 6: Save reconstructed data
+write.csv(
+  merged_data,
+  file.path(review_folder, "OTUs_Neg_Checked.csv"),
+  row.names = FALSE
+)
+                                                
+###############################################################################
+# Create data Needed for FunLeaf Dataset article     -In R 
+###############################################################################
+
+library(openxlsx)
+library(dplyr)
+library(readxl)
+
+# Step 1: Read the file with NO headers, don't touch names
+All_OTU_with_FL <- read.csv(
+  "<PROJECT_ROOT>/Control_review/OTUs_Neg_Checked.csv",
+  header = TRUE,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+
+## here use sample_title in place of Code
+# =============================================================================
+# Duplicate samples were summed during the metadata mapping step above     -In R 
+# =============================================================================
+
+# Confirm that the resulting sample columns are unique.
+metadata_count <- 21
+sample_cols <- seq.int(2, ncol(All_OTU_with_FL) - metadata_count)
+if (anyDuplicated(colnames(All_OTU_with_FL)[sample_cols])) {
+  stop("Duplicate FL-code columns remain after mapping.")
+}
+metadata_cols <- seq.int(ncol(All_OTU_with_FL) - metadata_count + 1, ncol(All_OTU_with_FL))
+
+# =============================================================================
+# We applied a threshold of 250 bp to remove very short OTU sequences, which were assumed to be artefactual. After selecting 
+# sequences with less base parir removed them   
+# In HPC
+# =============================================================================
+#!/bin/bash
+
+INPUT="subset_all_OTUs.fa"     # or your main FASTA
+OUTPUT="otus_shorter_than_250bp.fa"
+
+awk -v maxlen=250 '
+/^>/ {
+    # print previous sequence if condition met
+    if (seqlen > 0 && seqlen < maxlen) {
+        print header
+        print seq
+    }
+    header = $0
+    seq = ""
+    seqlen = 0
+    next
+}
+
+{
+    seq = seq $0
+    seqlen += length($0)
+}
+
+END {
+    # last sequence
+    if (seqlen > 0 && seqlen < maxlen) {
+        print header
+        print seq
+    }
+}
+' "$INPUT" > "$OUTPUT"
+
+echo "✅ Done"
+
+echo -n "Sequences < 250 bp: "
+grep -c "^>" "$OUTPUT"
+
+# =============================================================================
+# remove sequences with less than 250bp    -In R
+# =============================================================================
+
+# Read FASTA file
+fasta_lines <- readLines("<PROJECT_ROOT>/otus_shorter_than_250bp.fa")
+
+# Extract OTU IDs (lines starting with ">")
+otu_remove <- gsub("^>", "", fasta_lines[grepl("^>", fasta_lines)])
+
+# Check count
+cat("Total OTUs to remove:", length(otu_remove), "\n")
+
+# Remove matching OTUs
+before_n <- nrow(All_OTU_with_FL)
+
+All_OTU_with_FL <- All_OTU_with_FL[!All_OTU_with_FL$OTU %in% otu_remove, ]
+
+after_n <- nrow(All_OTU_with_FL)
+
+cat("Rows before:", before_n, "\n")
+cat("Rows removed:", before_n - after_n, "\n")
+cat("Rows after:", after_n, "\n")
+
+# =============================================================================
+#Remove singletons from data    -In R
+# =============================================================================
+
+# 1. Identify sample read columns
+otu_data <- All_OTU_with_FL
+
+# Exclude OTU ID (1st column) and last 21 columns (metadata)
+read_cols <- seq.int(2, ncol(otu_data) - 21)
+
+# 2. Calculate how many samples each OTU appears in (non-zero counts)
+otu_counts <- rowSums(otu_data[, read_cols] > 0, na.rm = TRUE)
+
+# 3. Keep only rows (OTUs) that appear in more than one sample
+All_OTU_with_FL <- otu_data[otu_counts > 1, ]
+
+
+# =============================================================================
+# Export OTU table as back up before applying thresholds (In R)
+# =============================================================================
+# Identify read columns (exclude metadata)
+read_cols <- seq.int(2, ncol(All_OTU_with_FL) - 21)
+
+All_OTUs_AllKingdoms <- All_OTU_with_FL %>%
+  mutate(Abundance = rowSums(across(all_of(read_cols)), na.rm = TRUE))
+
+
+# FILE: All OTUs (all kingdoms) BEFORE thresholds
+write.csv(All_OTUs_AllKingdoms,
+          "<PROJECT_ROOT>/output/all_otus_all_kingdoms.csv",
+          row.names = FALSE)
+
+# =============================================================================
+# calculate OTU richness (number of unique OTUs) and total reads per fungal taxonomic group
+# =============================================================================
+
+# 1. Subset the OTU table (reads) and taxonomic info
+# Assuming OTU counts are columns 2 to 6750 (FL codes), and taxonomic info from column 426
+otu_table <- All_OTU_with_FL[, seq.int(2, ncol(All_OTU_with_FL) - 22), drop = FALSE]  # skip OTU name column (1), read counts only
+taxonomy_info <- All_OTU_with_FL[, c("OTU", "Kingdom", "phylum", "class", "order", "family", "genus")]
+
+# Add total read count per OTU
+taxonomy_info$TotalReads <- rowSums(otu_table)
+
+# 2. Function to calculate richness and read counts per taxonomic level
+get_richness_reads <- function(level) {
+  aggregate_data <- aggregate(TotalReads ~ get(level), data = taxonomy_info, FUN = sum)
+  richness_data <- aggregate(OTU ~ get(level), data = taxonomy_info, FUN = function(x) length(unique(x)))
+  result <- merge(aggregate_data, richness_data, by = "get(level)")
+  colnames(result) <- c(level, "Total_Reads", "OTU_Richness")
+  return(result)
+}
+
+# 3. Apply function to each level
+Kingdom_summary <- get_richness_reads("Kingdom")
+phylum_summary <- get_richness_reads("phylum")
+class_summary  <- get_richness_reads("class")
+order_summary  <- get_richness_reads("order")
+family_summary <- get_richness_reads("family")
+genus_summary  <- get_richness_reads("genus")
+
+# 4. Write to Excel file with multiple sheets
+write.xlsx(list(
+  "Kingdom_summary" = Kingdom_summary,
+  "Phylum_Summary" = phylum_summary,
+  "Class_Summary"  = class_summary,
+  "Order_Summary"  = order_summary,
+  "Family_Summary" = family_summary,
+  "Genus_Summary"  = genus_summary
+), file = "Filtered_Taxonomic_Richness_Reads.xlsx", overwrite = TRUE)
+
+# =============================================================================
+# To exclude samples dominated by plant DNA and with low fungal sequencing depth, we removed the samples with fewer than 200 
+# fungal reads if more than 90% of their total reads were assigned to plants.
+# =============================================================================
+## remove samples with the above thresholds (IN R)
+# =============================================================================
+####################################################################################################################
+# First keep FunLeaf samples (Bioproject includes secuences from samples of other projects)
+# list of FunLeaf samples are under column 'FunLeaf_ID' in the sample metadata acompanying the Raw Sequences in ENA 
+#####################################################################################################################
+
+keep_list <- read.csv("<PROJECT_ROOT>/samples_to_keep_after_threshold.csv",
+                      check.names = FALSE, stringsAsFactors = FALSE)
+
+if (!"FunLeaf_ID" %in% names(keep_list)) {
+  stop("The sample keep-list must contain a 'FunLeaf_ID' column.")
+}
+keep_ids <- trimws(as.character(keep_list$FunLeaf_ID))
+keep_ids <- keep_ids[!is.na(keep_ids) & nzchar(keep_ids)]
+if (anyDuplicated(keep_ids)) stop("The sample keep-list contains duplicate FL codes.")
+
+metadata_count <- 21
+sample_cols <- seq.int(2, ncol(All_OTU_with_FL) - metadata_count)
+available_samples <- colnames(All_OTU_with_FL)[sample_cols]
+missing_samples <- setdiff(keep_ids, available_samples)
+if (length(missing_samples) > 0) {
+  stop("Requested FL codes not found: ", paste(missing_samples, collapse = ", "))
+}
+keep_cols <- match(keep_ids, available_samples) + 1
+metadata_cols <- seq.int(ncol(All_OTU_with_FL) - metadata_count + 1,
+                         ncol(All_OTU_with_FL))
+Data_clean <- All_OTU_with_FL[, c(1, keep_cols, metadata_cols), drop = FALSE]
+cat("Samples retained from threshold keep-list:", length(keep_ids), "\n")
+
+# 1. Identify sample read columns
+otu_data <- Data_clean
+
+# Exclude OTU ID (1st column) and last 21 columns (metadata)
+read_cols <- seq.int(2, ncol(otu_data) - 21)
+
+# 2. Calculate how many samples each OTU appears in (non-zero counts)
+otu_counts <- rowSums(otu_data[, read_cols] > 0, na.rm = TRUE)
+
+# 3. Keep only rows (OTUs) that appear in more than one sample
+Data_clean <- otu_data[otu_counts > 1, ]
+
+# =============================================================================
+# Export FILE1: All OTUs (all kingdoms) AFTER thresholds  (Used in FunLeaf dataset) IN R
+# =============================================================================
+# Data_clean = dataset after removing unwanted columns and singletons
+read_cols_clean <- seq.int(2, ncol(Data_clean) - 21)
+
+All_OTUs_AfterThresholds <- Data_clean %>%
+  mutate(Abundance = rowSums(across(all_of(read_cols_clean)), na.rm = TRUE))
+
+# FILE: All OTUs (all kingdoms) AFTER thresholds
+write.csv(All_OTUs_AfterThresholds,
+          "<PROJECT_ROOT>/all_otus_after_thresholds.csv",
+          row.names = FALSE)
+
+# =============================================================================
+# Export FILE2: Fungi OTU after thresholds  (Used in FunLeaf dataset) 
+# =============================================================================
+
+# Separating Fungi data (including cf.Fungi)
+Fungi_data <- Data_clean[grepl("Fungi|cf.Fungi", Data_clean$Kingdom), ]
+
+# 1. Identify sample read columns
+otu_data <- Fungi_data
+
+# Exclude OTU ID (1st column) and last 21 columns (metadata)
+read_cols <- seq.int(2, ncol(otu_data) - 21)
+
+# 2. Calculate how many samples each OTU appears in (non-zero counts)
+otu_counts <- rowSums(otu_data[, read_cols] > 0, na.rm = TRUE)
+
+# 3. Keep only rows (OTUs) that appear in more than one sample
+Fungi_no_singletons <- otu_data[otu_counts > 1, ]
+Fungi_OTUs_after <- Fungi_no_singletons %>%
+  mutate(Abundance = rowSums(across(all_of(read_cols)), na.rm = TRUE))
+
+# FILE 4: Fungi OTUs AFTER thresholds
+write.csv(Fungi_OTUs_after,
+          "<PROJECT_ROOT>/fungal_otus_after_threshold.csv",
+          row.names = FALSE)
+
+# =============================================================================
+# Create and Export Taxonomy Table for All Kingdoms from Data_clean                                                      IN R
+# =============================================================================
+
+# Identify the sample read columns (exclude metadata)
+read_cols_clean <- seq.int(2, ncol(Data_clean) - 21)
+
+# Calculate total abundance (row sum of reads across all samples)
+clean_total_abundance <- rowSums(Data_clean[, read_cols_clean], na.rm = TRUE)
+
+# Select taxonomy columns + OTU ID + total abundance
+taxonomy_all_kingdoms <- Data_clean[, c("OTU", "Kingdom", "phylum", "class", "order", "family", "genus", "species")]
+taxonomy_all_kingdoms$TotalAbundance <- clean_total_abundance
+
+# Save to Excel
+write.xlsx(
+  taxonomy_all_kingdoms,
+  file = "<PROJECT_ROOT>/taxonomy_all_kingdoms.xlsx",
+  overwrite = TRUE
+)
